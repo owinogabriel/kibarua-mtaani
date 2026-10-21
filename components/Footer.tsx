@@ -1,6 +1,6 @@
-
 import Link from "next/link";
 import { navLinks } from "../data/nav";
+import { cacheLife } from "next/cache";
 
 export default function Footer() {
   return (
@@ -40,9 +40,16 @@ export default function Footer() {
           </ul>
         </div>
         <div className="border-t border-white/10 py-4 text-center text-xs text-brand-100/60">
-          © {new Date().getFullYear()} Kibarua Mtaani. All rights reserved.
+          © <CurrentYear /> Kibarua Mtaani. All rights reserved.
         </div>
       </div>
     </footer>
   );
+}
+
+// Cache the current year for a day to avoid unnecessary re-renders
+async function CurrentYear() {
+  "use cache";
+  cacheLife("days");
+  return <>{new Date().getFullYear()}</>;
 }
