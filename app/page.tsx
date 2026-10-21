@@ -1,8 +1,17 @@
+import Hero from "@/components/Hero";
+import HowItWorks from "@/components/HowItWorks";
+import TrustStrip from "@/components/TrustStrip";
+import CtaBanner from "@/components/CtaBanner";
+import CategoryGrid from "@/components/CategoryGrid";
 
 export default function Home() {
   return (
-    <main className=" flex  min-h-screen items-center justify-center">
-      <h1 className="text-3xl font-bold text-brand-600">Kibarua Mtaani</h1>
+    <main>
+      <Hero />
+      <CategoryGrid />
+      <HowItWorks />
+      <TrustStrip />
+      <CtaBanner />
     </main>
   );
 }
