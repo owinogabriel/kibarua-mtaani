@@ -94,6 +94,7 @@ const en = {
     contact: "Contact",
     rights: "All rights reserved.",
   },
+  
 };
 
 export default en;
