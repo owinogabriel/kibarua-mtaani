@@ -15,7 +15,7 @@ export default function Hero() {
 
         <p className="mx-auto mt-5 max-w-xl text-lg text-gray-600">
           Hire trusted people for everday jobs, or find work near you. Fast,
-          fair and paid through M-pes
+          fair and paid through M-pesa
         </p>
 
         {/* The two-way split */}
