@@ -19,8 +19,8 @@ export default function CategoryGrid() {
             className="rounded-xl border border-gray-100 bg-white p-5 text-center shadow-sm transition hover:-translate-y-1 hover:border-brand-500 hover:shadow-md"
           >
             <div className="text-4xl">{cat.emoji}</div>
-            <h3 className="mt-3 font-semibold text-gray-900">{cat.name}</h3>
-            <p className="mt-1 text-xs text-gray-500">{cat.blurb}</p>
+            <h3 className="mt-3 font-semibold text-gray-900">{cat.slug}</h3>
+            <p className="mt-1 text-xs text-gray-500">{cat.emoji}</p>
           </Link>
         ))}
       </div>

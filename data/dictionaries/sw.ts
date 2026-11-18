@@ -103,6 +103,157 @@ const sw: Dictionary = {
     contact: "Mawasiliano",
     rights: "Haki zote zimehifadhiwa.",
   },
+
+  postJob: {
+    title: "Weka kazi",
+    subtitle:
+      "Tuambie unachohitaji. Ni bure na inachukua chini ya dakika moja.",
+    fields: {
+      category: "Unahitaji nini?",
+      categoryPlaceholder: "Chagua aina ya kazi",
+      title: "Kichwa cha kazi",
+      titlePlaceholder: "k.m. Kusafisha nyumba ya vyumba viwili",
+      description: "Maelezo",
+      descriptionPlaceholder:
+        "Eleza kazi, ukubwa wake, na vifaa vinavyohitajika...",
+      estate: "Mtaa au eneo",
+      estatePlaceholder: "k.m. Kilimani",
+      when: "Unahitaji lini?",
+      budget: "Bajeti (KES), si lazima",
+      budgetPlaceholder: "k.m. 1500",
+      budgetHint: "Acha wazi upate makadirio ya bei.",
+      name: "Jina lako",
+      phone: "Namba ya simu",
+      phoneHint: "Inatumika kwa M-Pesa. Haionyeshwi hadharani.",
+    },
+    when: {
+      asap: "Haraka iwezekanavyo",
+      today: "Leo",
+      tomorrow: "Kesho",
+      thisWeek: "Wiki hii",
+      flexible: "Niko tayari wakati wowote",
+    },
+    submit: "Weka kazi",
+    submitting: "Inawekwa...",
+    errors: {
+      generic: "Tafadhali angalia sehemu hii.",
+      category: "Chagua aina ya kazi.",
+      titleShort: "Kichwa kiwe na angalau herufi 5.",
+      titleLong: "Kichwa kisizidi herufi 80.",
+      descShort: "Eleza kazi kwa angalau herufi 10.",
+      descLong: "Maelezo yasizidi herufi 500.",
+      estate: "Weka mtaa au eneo lako.",
+      when: "Chagua wakati.",
+      budgetInvalid: "Tumia namba tu, k.m. 1500.",
+      budgetMin: "Bajeti ya chini ni KES 100.",
+      name: "Weka jina lako.",
+      phone: "Weka namba sahihi ya simu, k.m. 0712 345 678.",
+    },
+    success: {
+      title: "Kazi imewekwa!",
+      text: "Tumepokea kazi yako. Tutakupigia simu mfanyakazi akikubali.",
+      ref: "Namba yako ya kumbukumbu",
+      another: "Weka kazi nyingine",
+      home: "Rudi nyumbani",
+    },
+  },
+
+  worker: {
+    title: "Jisajili kama mfanyakazi",
+    subtitle:
+      "Kujiunga ni bure. Pata arifa za kazi karibu nawe na lipwa kupitia M-Pesa.",
+    fields: {
+      name: "Jina lako",
+      phone: "Namba ya simu",
+      phoneHint: "Tutatuma arifa za kazi hapa. Haionyeshwi hadharani.",
+      skills: "Unafanya kazi gani?",
+      skillsHint: "Chagua zote zinazokufaa.",
+      areas: "Unaweza kufanya kazi wapi?",
+      areasHint: "Chagua mitaa unayoweza kufika.",
+      otherArea: "Maeneo mengine",
+      otherAreaPlaceholder: "k.m. Ngong Road, Syokimau (tenganisha kwa koma)",
+      experience: "Uzoefu",
+      experiencePlaceholder: "Chagua moja",
+      about: "Kukuhusu (si lazima)",
+      aboutPlaceholder:
+        "Waambie wateja kidogo kuhusu kazi yako na kinachokufanya uaminike...",
+      consent:
+        "Nakubali kupigiwa au kutumiwa ujumbe wa kazi kwa SMS au WhatsApp.",
+    },
+    experience: {
+      new: "Naanza tu",
+      lt1: "Chini ya mwaka 1",
+      "1to3": "Miaka 1 hadi 3",
+      "3plus": "Zaidi ya miaka 3",
+    },
+    submit: "Jisajili",
+    submitting: "Inasajili...",
+    errors: {
+      generic: "Tafadhali angalia sehemu hii.",
+      name: "Weka jina lako.",
+      phone: "Weka namba sahihi ya simu, k.m. 0712 345 678.",
+      skills: "Chagua angalau aina moja ya kazi.",
+      areas: "Chagua au andika angalau eneo moja.",
+      areasMax: "Tafadhali chagua maeneo 10 au chini.",
+      experience: "Chagua uzoefu wako.",
+      aboutLong: "Isizidi herufi 300.",
+      consent: "Tafadhali kubali ili tuweze kukutumia kazi.",
+    },
+    success: {
+      title: "Umesajiliwa!",
+      text: "Karibu Kibarua Mtaani. Tutakutumia ujumbe kazi zikipatikana eneo lako. Baadaye utaweza kuthibitisha kitambulisho chako upate beji ya kuaminika.",
+      ref: "Namba yako ya kumbukumbu",
+      another: "Sajili mtu mwingine",
+      home: "Rudi nyumbani",
+    },
+  },
+
+  howPage: {
+    title: "Rahisi kwa kila mtu",
+    subtitle:
+      "Iwe unahitaji msaada au unataka kupata kipato, kuanza kunachukua dakika chache tu.",
+    faqHeading: "Maswali ya kawaida",
+    faqs: [
+      {
+        q: "Je, kuweka kazi ni bure?",
+        a: "Ndiyo. Kuweka kazi ni bure. Unalipia kazi yenyewe tu.",
+      },
+      {
+        q: "Je, ni bure kwa wafanyakazi kujiunga?",
+        a: "Ndiyo. Kujisajili ni bure, na unabaki na unachopata.",
+      },
+      {
+        q: "Wafanyakazi huthibitishwa vipi?",
+        a: "Wafanyakazi wanaweza kuwasilisha kitambulisho ili wapate beji ya uthibitisho. Tathmini kutoka kwa kazi zilizokamilika hujenga uaminifu.",
+      },
+      {
+        q: "Nalipaje?",
+        a: "Unakubaliana bei na mfanyakazi. Malipo salama ya M-Pesa yanakuja hivi karibuni.",
+      },
+      {
+        q: "Mnahudumia maeneo gani?",
+        a: "Tunaanza na mitaa fulani ya Nairobi na tutapanuka.",
+      },
+    ],
+  },
+
+  findWork: {
+    title: "Tafuta kazi",
+    subtitle: "Angalia kazi karibu nawe na uwasiliane.",
+    category: "Aina",
+    area: "Eneo",
+    allCategories: "Aina zote",
+    allAreas: "Maeneo yote",
+    filter: "Chuja",
+    clear: "Futa",
+    results: "Kazi {n} zimepatikana",
+    noResults: "Hakuna kazi zinazolingana bado. Jaribu eneo au aina nyingine.",
+    quotes: "Omba makadirio",
+    postedAgo: "saa {n} zilizopita",
+    interested: "Nimevutiwa",
+    noAccountCta: "Unataka arifa za kazi kwenye simu yako?",
+    register: "Jisajili kama mfanyakazi",
+  },
 };
 
 export default sw;
