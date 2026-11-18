@@ -2,7 +2,7 @@ import { categories } from "@/data/categories";
 import { z } from "zod";
 import { normalizeKenyanPhone } from "./phone";
 
-const categorySlugs: string[] = categories.map((category) => category.slug); 
+const categorySlugs: string[] = categories.map((c) => c.slug);
 export const whenOptions = [
   "asap",
   "today",
@@ -11,7 +11,7 @@ export const whenOptions = [
   "flexible",
 ];
 
-export const jobSchema = {
+export const jobSchema = z.object( {
   category: z
     .string()
     .refine(
@@ -50,11 +50,11 @@ export const jobSchema = {
     .trim()
     .refine((v) => normalizeKenyanPhone(v) !== null, "phone")
     .transform((v) => normalizeKenyanPhone(v) as string),
-};
+});
 
 export type JobInput = z.infer<typeof jobSchema>;
 
-export type jobFormState = {
+export type JobFormState = {
   status: "idle" | "error" | "success";
   errors: Record<string, string>;
   values: Record<string, string>;
