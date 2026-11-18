@@ -187,13 +187,60 @@ const en = {
       aboutLong: "Keep it under 300 characters.",
       consent: "Please agree so we can send you jobs.",
     },
-    success: {
+       success: {
       title: "You're registered!",
       text: "Welcome to Kibarua Mtaani. We'll message you when jobs come up in your area. Later you'll be able to verify your ID for a trusted badge.",
       ref: "Your reference",
       another: "Register someone else",
       home: "Back home",
     },
+  },
+
+  howPage: {
+    title: "Simple for everyone",
+    subtitle:
+      "Whether you need a hand or want to earn, it takes just a few minutes to get started.",
+    faqHeading: "Common questions",
+    faqs: [
+      {
+        q: "Is it free to post a job?",
+        a: "Yes. Posting a job is free. You only pay for the work itself.",
+      },
+      {
+        q: "Is it free for workers to join?",
+        a: "Yes. Registering is free, and you keep what you earn.",
+      },
+      {
+        q: "How are workers verified?",
+        a: "Workers can submit their ID to earn a verified badge. Ratings from completed jobs build trust over time.",
+      },
+      {
+        q: "How do I pay?",
+        a: "You agree the price with the worker. Secure M-Pesa checkout is coming soon.",
+      },
+      {
+        q: "Which areas do you cover?",
+        a: "We're starting in selected Nairobi estates and growing from there.",
+      },
+    ],
+  },
+
+  findWork: {
+    title: "Find work",
+    subtitle: "Browse jobs near you and get in touch.",
+    category: "Category",
+    area: "Area",
+    allCategories: "All categories",
+    allAreas: "All areas",
+    filter: "Filter",
+    clear: "Clear",
+    results: "{n} jobs found",
+    noResults: "No jobs match your filters yet. Try another area or category.",
+    quotes: "Get quotes",
+    postedAgo: "{n}h ago",
+    interested: "I'm interested",
+    noAccountCta: "Want job alerts on your phone?",
+    register: "Register as a worker",
   },
 };
 

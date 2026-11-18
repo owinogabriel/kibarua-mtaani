@@ -207,6 +207,53 @@ const sw: Dictionary = {
       home: "Rudi nyumbani",
     },
   },
+
+  howPage: {
+    title: "Rahisi kwa kila mtu",
+    subtitle:
+      "Iwe unahitaji msaada au unataka kupata kipato, kuanza kunachukua dakika chache tu.",
+    faqHeading: "Maswali ya kawaida",
+    faqs: [
+      {
+        q: "Je, kuweka kazi ni bure?",
+        a: "Ndiyo. Kuweka kazi ni bure. Unalipia kazi yenyewe tu.",
+      },
+      {
+        q: "Je, ni bure kwa wafanyakazi kujiunga?",
+        a: "Ndiyo. Kujisajili ni bure, na unabaki na unachopata.",
+      },
+      {
+        q: "Wafanyakazi huthibitishwa vipi?",
+        a: "Wafanyakazi wanaweza kuwasilisha kitambulisho ili wapate beji ya uthibitisho. Tathmini kutoka kwa kazi zilizokamilika hujenga uaminifu.",
+      },
+      {
+        q: "Nalipaje?",
+        a: "Unakubaliana bei na mfanyakazi. Malipo salama ya M-Pesa yanakuja hivi karibuni.",
+      },
+      {
+        q: "Mnahudumia maeneo gani?",
+        a: "Tunaanza na mitaa fulani ya Nairobi na tutapanuka.",
+      },
+    ],
+  },
+
+  findWork: {
+    title: "Tafuta kazi",
+    subtitle: "Angalia kazi karibu nawe na uwasiliane.",
+    category: "Aina",
+    area: "Eneo",
+    allCategories: "Aina zote",
+    allAreas: "Maeneo yote",
+    filter: "Chuja",
+    clear: "Futa",
+    results: "Kazi {n} zimepatikana",
+    noResults: "Hakuna kazi zinazolingana bado. Jaribu eneo au aina nyingine.",
+    quotes: "Omba makadirio",
+    postedAgo: "saa {n} zilizopita",
+    interested: "Nimevutiwa",
+    noAccountCta: "Unataka arifa za kazi kwenye simu yako?",
+    register: "Jisajili kama mfanyakazi",
+  },
 };
 
 export default sw;
