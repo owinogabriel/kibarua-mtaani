@@ -1,5 +1,8 @@
 "use server";
 
+import { db } from "@/lib/db";
+import { jobs } from "@/lib/db/schema";
+import { makeRef } from "@/lib/ref";
 import { jobSchema, type JobFormState } from "@/lib/validation";
 
 export async function submitJob(
@@ -23,9 +26,22 @@ export async function submitJob(
     return { status: "error", errors, values };
   }
 
-  // TODO (Step 7): save to Supabase instead of logging
-  const jobRef = "KM-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-  console.log("NEW JOB:", { jobRef, ...parsed.data });
-
-  return { status: "success", errors: {}, values: {}, jobRef };
+  const d = parsed.data
+  try  {
+   const [row] =  await db.insert(jobs).values({
+   ref: makeRef("KM"),
+        category: d.category,
+        title: d.title,
+        description: d.description,
+        estate: d.estate,
+        timing: d.when,
+        budget: d.budget,
+        customerName: d.name,
+        customerPhone: d.phone,
+   }).returning({ref:jobs.ref})
+   return { status: "success", errors: {}, values: {}, jobRef: row.ref };
+  } catch (error) {
+    console.error("submitJob failed:", error);
+    return { status: "error", errors: { form: "saveFailed" }, values };
+  }
 }

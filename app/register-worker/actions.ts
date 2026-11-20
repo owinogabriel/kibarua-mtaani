@@ -1,5 +1,8 @@
 "use server";
 
+import { db } from "@/lib/db";
+import { workers } from "@/lib/db/schema";
+import { makeRef } from "@/lib/ref";
 import {
   workerSchema,
   emptyWorkerValues,
@@ -60,15 +63,35 @@ export async function registerWorker(
     return { status: "error", errors, values };
   }
 
-  // TODO (Step 7): save to Supabase (and reject duplicate phone numbers)
-  const workerRef =
-    "KW-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-  console.log("NEW WORKER:", { workerRef, ...parsed.data });
+  const d = parsed.data;
+  try {
+    const inserted = await db
+      .insert(workers)
+      .values({
+        ref: makeRef("KW"),
+        name: d.name,
+        phone: d.phone, // is already registers nothing is inserted
+        skills: d.skills,
+        areas: d.areas,
+        experience: d.experience,
+        about: d.about,
+        consent: true,
+      })
+      .onConflictDoNothing({ target: workers.phone })
+      .returning({ ref: workers.ref });
 
-  return {
-    status: "success",
-    errors: {},
-    values: emptyWorkerValues,
-    workerRef,
-  };
+    if (inserted.length === 0) {
+      return { status: "error", errors: { phone: "phoneTaken" }, values };
+    }
+
+    return {
+      status: "success",
+      errors: {},
+      values: emptyWorkerValues,
+      workerRef: inserted[0].ref,
+    };
+  } catch (error) {
+    console.error("registerWorker failed:", error);
+    return { status: "error", errors: { form: "saveFailed" }, values };
+  }
 }
