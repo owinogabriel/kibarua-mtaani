@@ -11,7 +11,7 @@ export const whenOptions = [
   "flexible",
 ];
 
-export const jobSchema = z.object( {
+export const jobSchema = z.object({
   category: z
     .string()
     .refine(
@@ -34,6 +34,11 @@ export const jobSchema = z.object( {
       (v) => whenOptions.includes(v),
       "when must be one of the predefined options",
     ),
+  estate: z
+    .string()
+    .trim()
+    .min(2, "estate must be at least 2 characters long")
+    .max(60, "estate must be at most 60 characters long"),
   budget: z
     .string()
     .trim()
