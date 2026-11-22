@@ -14,6 +14,8 @@ const sw: Dictionary = {
     login: "Ingia",
     signup: "Jisajili",
     menu: "Fungua menyu",
+    dashboard: "Dashibodi",
+    logout: "Toka",
   },
   hero: {
     badge: "Vibarua vya mtaani, vimefanywa vizuri",
@@ -253,6 +255,52 @@ const sw: Dictionary = {
     interested: "Nimevutiwa",
     noAccountCta: "Unataka arifa za kazi kwenye simu yako?",
     register: "Jisajili kama mfanyakazi",
+  },
+  auth: {
+    show: "Onyesha",
+    hide: "Ficha",
+    login: {
+      title: "Ingia",
+      subtitle: "Karibu tena. Ingia kwa namba yako ya simu na nenosiri.",
+      submit: "Ingia",
+      submitting: "Inaingia...",
+      noAccount: "Wewe ni mgeni?",
+      signupLink: "Fungua akaunti",
+    },
+    signup: {
+      title: "Fungua akaunti yako",
+      subtitle: "Ni bure. Tumia namba yako ya simu na uchague nenosiri.",
+      name: "Jina lako",
+      submit: "Fungua akaunti",
+      submitting: "Inafungua...",
+      haveAccount: "Una akaunti tayari?",
+      loginLink: "Ingia",
+    },
+    fields: {
+      phone: "Namba ya simu",
+      password: "Nenosiri",
+      passwordHint: "Angalau herufi 8. Usitumie PIN yako ya M-Pesa kamwe.",
+    },
+    errors: {
+      name: "Weka jina lako.",
+      phone: "Weka namba sahihi ya simu, k.m. 0712 345 678.",
+      password: "Weka nenosiri lako.",
+      passwordShort: "Nenosiri liwe na angalau herufi 8.",
+      passwordLong: "Nenosiri ni refu mno.",
+      phoneTaken: "Namba hii ina akaunti tayari. Jaribu kuingia.",
+      invalidLogin: "Namba ya simu au nenosiri si sahihi.",
+      locked:
+        "Majaribio mengi yaliyoshindwa. Tafadhali jaribu tena baada ya dakika 15.",
+      saveFailed: "Hitilafu imetokea. Tafadhali jaribu tena.",
+    },
+  },
+  dashboard: {
+    greeting: "Habari, {name}",
+    subtitle: "Ungependa kufanya nini?",
+    postJob: "Weka kazi",
+    findWork: "Tafuta kazi",
+    registerWorker: "Weka wasifu wangu wa mfanyakazi",
+    soon: "Kazi zako na maombi yako yataonekana hapa hivi karibuni.",
   },
 };
 
