@@ -54,26 +54,23 @@ export async function createSession(userId: string) {
  */
 export const getCurrentUser = cache(async () => {
   const token = (await cookies()).get(COOKIE)?.value;
-
-  // No cookie means the visitor isn't logged in.
   if (!token) return null;
 
-  // Hash the incoming token and look it up, joining to the user in one query.
-  // Only selecting the fields we need avoids leaking extra columns to callers.
-  const [row] = await db
-    .select({ id: users.id, name: users.name, phone: users.phone })
-    .from(sessions)
-    .innerJoin(users, eq(sessions.userId, users.id))
-    .where(
-      and(
-        eq(sessions.tokenHash, sha256(token)),
-        gt(sessions.expiresAt, new Date()), // Ignore expired sessions
-      ),
-    )
-    .limit(1);
+  try {
+    const [row] = await db
+      .select({ id: users.id, name: users.name, phone: users.phone })
+      .from(sessions)
+      .innerJoin(users, eq(sessions.userId, users.id))
+      .where(
+        and(eq(sessions.tokenHash, sha256(token)), gt(sessions.expiresAt, new Date())),
+      )
+      .limit(1);
 
-  // Unknown, expired, or revoked tokens all resolve to "not logged in".
-  return row ?? null;
+    return row ?? null;
+  } catch (error) {
+    console.error("getCurrentUser failed:", error, (error as { cause?: unknown })?.cause);
+    return null; // treat as logged out instead of crashing the page
+  }
 });
 
 /**
