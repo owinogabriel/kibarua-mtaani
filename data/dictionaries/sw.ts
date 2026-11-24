@@ -169,6 +169,7 @@ const sw: Dictionary = {
     title: "Jisajili kama mfanyakazi",
     subtitle:
       "Kujiunga ni bure. Pata arifa za kazi karibu nawe na lipwa kupitia M-Pesa.",
+    registeringAs: "Unajisajili kama {name} (+{phone})",
     fields: {
       name: "Jina lako",
       phone: "Namba ya simu",
@@ -205,6 +206,8 @@ const sw: Dictionary = {
       experience: "Chagua uzoefu wako.",
       aboutLong: "Isizidi herufi 300.",
       consent: "Tafadhali kubali ili tuweze kukutumia kazi.",
+      loginRequired: "Tafadhali ingia ili ujisajili kama mfanyakazi.",
+      alreadyRegistered: "Tayari una wasifu wa mfanyakazi.",
     },
     success: {
       title: "Umesajiliwa!",
@@ -212,6 +215,8 @@ const sw: Dictionary = {
       ref: "Namba yako ya kumbukumbu",
       another: "Sajili mtu mwingine",
       home: "Rudi nyumbani",
+      findWork: "Tafuta kazi",
+      dashboard: "Nenda kwenye dashibodi",
     },
   },
 
@@ -263,7 +268,7 @@ const sw: Dictionary = {
     apply: {
       button: "Nimevutiwa",
       sending: "Inatuma...",
-      sent: "Asante! Tumepokea ombi lako na tutawasiliana nawe kupitia namba ya akaunti yako.",
+      sent: "Asante! Mteja sasa anaweza kuona nia yako na kukupigia kupitia namba ya akaunti yako.",
       applied: "Umeonyesha nia",
       yours: "Kazi yako",
       loginToApply: "Ingia ili kuomba",
@@ -318,11 +323,36 @@ const sw: Dictionary = {
   },
   dashboard: {
     greeting: "Habari, {name}",
-    subtitle: "Ungependa kufanya nini?",
+    subtitle: "Simamia kazi zako na maombi yako.",
     postJob: "Weka kazi",
     findWork: "Tafuta kazi",
     registerWorker: "Weka wasifu wangu wa mfanyakazi",
-    soon: "Kazi zako na maombi yako yataonekana hapa hivi karibuni.",
+    workerReady: "Wasifu wa mfanyakazi unatumika",
+    verifiedBadge: "Amethibitishwa",
+    myJobs: "Kazi zangu",
+    noJobs: "Bado hujaweka kazi yoyote.",
+    interested: "Wafanyakazi waliovutiwa ({n})",
+    noApplicants: "Bado hakuna aliyeonyesha nia.",
+    contact: "WhatsApp",
+    whatsappMsg:
+      'Habari {name}, nimeona umevutiwa na kazi yangu "{title}" kwenye Kibarua Mtaani. Je, upo tayari?',
+    myApplications: "Maombi yangu",
+    noApplications: "Bado hujaomba kazi yoyote.",
+    withdraw: "Ondoa ombi",
+    posted: "Imewekwa {date}",
+    applied: "Uliomba {date}",
+    status: {
+      open: "Wazi",
+      assigned: "Imepata mtu",
+      done: "Imekamilika",
+      cancelled: "Imeghairiwa",
+    },
+    actions: {
+      assigned: "Weka imepata mtu",
+      cancelled: "Ghairi kazi",
+      done: "Weka imekamilika",
+      open: "Fungua tena",
+    },
   },
 };
 

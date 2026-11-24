@@ -5,7 +5,6 @@ import { useActionState } from "react";
 import { registerWorker } from "@/app/register-worker/actions";
 import Field from "@/components/Field";
 import { categories } from "@/data/categories";
-
 import { inputClass } from "@/lib/formStyles";
 import {
   emptyWorkerValues,
@@ -52,9 +51,10 @@ function Chip({
 type Props = {
   dict: Dictionary["worker"];
   categoryNames: Dictionary["categories"]["items"];
+  account: { name: string; phone: string };
 };
 
-export default function WorkerForm({ dict, categoryNames }: Props) {
+export default function WorkerForm({ dict, categoryNames, account }: Props) {
   const [state, formAction, pending] = useActionState(
     registerWorker,
     initialState,
@@ -77,18 +77,17 @@ export default function WorkerForm({ dict, categoryNames }: Props) {
           </span>
         </p>
         <div className="mt-6 flex justify-center gap-3">
-          <button
-            type="button"
-            onClick={() => window.location.reload()}
+          <Link
+            href="/find-work"
             className="rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-700"
           >
-            {dict.success.another}
-          </button>
+            {dict.success.findWork}
+          </Link>
           <Link
-            href="/"
+            href="/dashboard"
             className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
           >
-            {dict.success.home}
+            {dict.success.dashboard}
           </Link>
         </div>
       </div>
@@ -105,36 +104,11 @@ export default function WorkerForm({ dict, categoryNames }: Props) {
 
   return (
     <form action={formAction} noValidate className="space-y-6">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field label={dict.fields.name} htmlFor="name" error={err("name")}>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            defaultValue={v.name}
-            className={inputClass(err("name"))}
-          />
-        </Field>
-
-        <Field
-          label={dict.fields.phone}
-          htmlFor="phone"
-          error={err("phone")}
-          hint={dict.fields.phoneHint}
-        >
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            defaultValue={v.phone}
-            placeholder="0712 345 678"
-            className={inputClass(err("phone"))}
-          />
-        </Field>
-      </div>
+      <p className="rounded-lg bg-brand-50 px-3 py-2 text-sm text-brand-800">
+        {dict.registeringAs
+          .replace("{name}", account.name)
+          .replace("{phone}", account.phone)}
+      </p>
 
       <Field
         label={dict.fields.skills}
@@ -232,6 +206,22 @@ export default function WorkerForm({ dict, categoryNames }: Props) {
           </p>
         )}
       </div>
+
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      >
+        <input type="text" name="fax" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      {err("form") && (
+        <p
+          role="alert"
+          className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700"
+        >
+          {err("form")}
+        </p>
+      )}
 
       <button
         type="submit"
