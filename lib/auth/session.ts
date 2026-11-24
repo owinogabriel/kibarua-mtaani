@@ -30,7 +30,6 @@ const sha256 = (value: string) =>
  * Call this after the user has been successfully authenticated.
  */
 export async function createSession(userId: string) {
-
   const token = randomBytes(32).toString("base64url");
 
   // Persist only the hash. The raw token exists solely in the cookie.
@@ -41,8 +40,8 @@ export async function createSession(userId: string) {
   });
 
   (await cookies()).set(COOKIE, token, {
-    httpOnly: true, 
-    secure: process.env.NODE_ENV === "production", 
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
     maxAge: MAX_AGE_S, // Keep cookie lifetime in sync with DB expiry
@@ -52,24 +51,45 @@ export async function createSession(userId: string) {
 /**
  * Returns the currently logged-in user, or null if there's no valid session.
  */
+async function withRetry<T>(fn: () => Promise<T>, tries = 3): Promise<T> {
+  let lastError: unknown;
+  for (let i = 0; i < tries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+      await new Promise((resolve) => setTimeout(resolve, 400 * (i + 1)));
+    }
+  }
+  throw lastError;
+}
 export const getCurrentUser = cache(async () => {
   const token = (await cookies()).get(COOKIE)?.value;
   if (!token) return null;
 
   try {
-    const [row] = await db
-      .select({ id: users.id, name: users.name, phone: users.phone })
-      .from(sessions)
-      .innerJoin(users, eq(sessions.userId, users.id))
-      .where(
-        and(eq(sessions.tokenHash, sha256(token)), gt(sessions.expiresAt, new Date())),
-      )
-      .limit(1);
+    const [row] = await withRetry(() =>
+      db
+        .select({ id: users.id, name: users.name, phone: users.phone })
+        .from(sessions)
+        .innerJoin(users, eq(sessions.userId, users.id))
+        .where(
+          and(
+            eq(sessions.tokenHash, sha256(token)),
+            gt(sessions.expiresAt, new Date()),
+          ),
+        )
+        .limit(1),
+    );
 
     return row ?? null;
   } catch (error) {
-    console.error("getCurrentUser failed:", error, (error as { cause?: unknown })?.cause);
-    return null; // treat as logged out instead of crashing the page
+    console.error(
+      "getCurrentUser failed:",
+      error,
+      (error as { cause?: unknown })?.cause,
+    );
+    return null;
   }
 });
 
