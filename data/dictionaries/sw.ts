@@ -280,6 +280,7 @@ const sw: Dictionary = {
   auth: {
     show: "Onyesha",
     hide: "Ficha",
+    reason: "Tafadhali ingia au fungua akaunti ili kuendelea.",
     login: {
       title: "Ingia",
       subtitle: "Karibu tena. Ingia kwa namba yako ya simu na nenosiri.",

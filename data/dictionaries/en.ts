@@ -267,6 +267,7 @@ const en = {
   auth: {
     show: "Show",
     hide: "Hide",
+    reason: "Please log in or create an account to continue.",
     login: {
       title: "Log in",
       subtitle: "Welcome back. Log in with your phone number and password.",
