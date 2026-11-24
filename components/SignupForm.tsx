@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { signupAction } from "@/app/auth/actions";
 import { Dictionary } from "@/data/dictionaries/en";
@@ -15,7 +15,13 @@ const initialState: AuthState = {
   values: { name: "", phone: "" },
 };
 
-export default function SignupForm({ dict }: { dict: Dictionary["auth"] }) {
+export default function SignupForm({
+  dict,
+  next,
+}: {
+  dict: Dictionary["auth"];
+  next: string;
+}) {
   const [state, formAction, pending] = useActionState(
     signupAction,
     initialState,
@@ -28,6 +34,7 @@ export default function SignupForm({ dict }: { dict: Dictionary["auth"] }) {
 
   return (
     <form action={formAction} noValidate className="space-y-5">
+      <input type="hidden" name="next" value={next} />
       <Field label={dict.signup.name} htmlFor="name" error={err("name")}>
         <input
           id="name"
@@ -91,7 +98,7 @@ export default function SignupForm({ dict }: { dict: Dictionary["auth"] }) {
       <p className="text-center text-sm text-gray-600">
         {dict.signup.haveAccount}{" "}
         <Link
-          href="/login"
+          href={`/login?next=${encodeURIComponent(next)}`}
           className="font-semibold text-brand-700 hover:underline"
         >
           {dict.signup.loginLink}
