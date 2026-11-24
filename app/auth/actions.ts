@@ -6,6 +6,7 @@ import {
   signupSchema,
 } from "@/lib/auth/authValidation";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
+import { safeNext } from "@/lib/auth/redirect";
 import { createSession, destroySession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
 import { loginAttempts, users } from "@/lib/db/schema";
@@ -97,7 +98,7 @@ export async function signupAction(
   }
 
   // redirect() works by throwing, so it must stay outside the try/catch
-  redirect("/dashboard");
+  redirect(safeNext(str(formData.get("next"))));
 }
 
 /**
@@ -182,7 +183,7 @@ export async function loginAction(
   }
 
   // Outside the try/catch because redirect() throws (see signupAction).
-  redirect("/dashboard");
+  redirect(safeNext(str(formData.get("next"))));
 }
 
 /**
