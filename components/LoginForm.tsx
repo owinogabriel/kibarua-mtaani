@@ -15,7 +15,13 @@ const initialState: AuthState = {
   values: { name: "", phone: "" },
 };
 
-export default function LoginForm({ dict }: { dict: Dictionary["auth"] }) {
+export default function LoginForm({
+  dict,
+  next,
+}: {
+  dict: Dictionary["auth"];
+  next: string;
+}) {
   const [state, formAction, pending] = useActionState(
     loginAction,
     initialState,
@@ -28,6 +34,7 @@ export default function LoginForm({ dict }: { dict: Dictionary["auth"] }) {
 
   return (
     <form action={formAction} noValidate className="space-y-5">
+      <input type="hidden" name="next" value={next} />
       <Field label={dict.fields.phone} htmlFor="phone" error={err("phone")}>
         <input
           id="phone"
@@ -83,7 +90,7 @@ export default function LoginForm({ dict }: { dict: Dictionary["auth"] }) {
       <p className="text-center text-sm text-gray-600">
         {dict.login.noAccount}{" "}
         <Link
-          href="/signup"
+          href={`/signup?next=${encodeURIComponent(next)}`}
           className="font-semibold text-brand-700 hover:underline"
         >
           {dict.login.signupLink}

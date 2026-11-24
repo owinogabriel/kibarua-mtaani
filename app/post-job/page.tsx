@@ -1,7 +1,12 @@
+import { redirect } from "next/navigation";
 import PostJobForm from "@/components/PostJobForm";
 import { getDictionary } from "@/lib/i18n";
+import { getCurrentUser } from "@/lib/auth/session";
 
 export default async function PostJobPage() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/login?next=/post-job");
+
   const dict = await getDictionary();
 
   return (
@@ -16,6 +21,7 @@ export default async function PostJobPage() {
           <PostJobForm
             dict={dict.postJob}
             categoryNames={dict.categories.items}
+            poster={{ name: user.name, phone: user.phone }}
           />
         </div>
       </div>

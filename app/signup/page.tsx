@@ -2,9 +2,15 @@ import { redirect } from "next/navigation";
 import SignupForm from "@/components/SignupForm";
 import { getDictionary } from "@/lib/i18n";
 import { getCurrentUser } from "@/lib/auth/session";
+import { safeNext } from "@/lib/auth/redirect";
 
-export default async function SignupPage() {
-  if (await getCurrentUser()) redirect("/dashboard");
+type Props = { searchParams: Promise<{ next?: string }> };
+
+export default async function SignupPage({ searchParams }: Props) {
+  const { next: rawNext } = await searchParams;
+  const next = safeNext(rawNext);
+
+  if (await getCurrentUser()) redirect(next);
 
   const dict = await getDictionary();
 
@@ -16,8 +22,14 @@ export default async function SignupPage() {
         </h1>
         <p className="mt-2 text-gray-600">{dict.auth.signup.subtitle}</p>
 
-        <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-          <SignupForm dict={dict.auth} />
+        {rawNext && (
+          <p className="mt-4 rounded-lg bg-accent-400/15 px-3 py-2 text-sm text-gray-800">
+            {dict.auth.reason}
+          </p>
+        )}
+
+        <div className="mt-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <SignupForm dict={dict.auth} next={next} />
         </div>
       </div>
     </main>

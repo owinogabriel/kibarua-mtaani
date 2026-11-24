@@ -23,3 +23,4 @@ export type AuthState = {
   errors: Record<string, string>; // field -> error code
   values: { name: string; phone: string }; // passwords are never sent back
 };
+

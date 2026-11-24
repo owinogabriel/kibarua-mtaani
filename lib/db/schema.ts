@@ -10,6 +10,7 @@ import {
 
 export const jobs = pgTable("jobs", {
   id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
   ref: text("ref").notNull().unique(),
   category: text("category").notNull(),
   title: text("title").notNull(),
@@ -44,11 +45,14 @@ export const applications = pgTable(
     jobId: uuid("job_id")
       .notNull()
       .references(() => jobs.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
     workerName: text("worker_name").notNull(),
     workerPhone: text("worker_phone").notNull(), // 2547XXXXXXXX
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
-  (t) => [unique("applications_job_phone_unique").on(t.jobId, t.workerPhone)],
+  (t) => [unique("applications_job_user_unique").on(t.jobId, t.userId)],
 );
 
 // store users and their account details with each having unique identifier and their uuid being automatically generated when they are created

@@ -65,3 +65,5 @@ export type JobFormState = {
   values: Record<string, string>;
   jobRef?: string;
 };
+
+export const jobDetailsSchema = jobSchema.omit({ name: true, phone: true });
