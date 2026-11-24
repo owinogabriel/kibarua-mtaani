@@ -1,15 +1,12 @@
-
 "use client";
 
 import Link from "next/link";
 import { useActionState } from "react";
-
+import Field from "@/components/Field";
 import { categories } from "@/data/categories";
-
+import { inputClass } from "@/lib/formStyles";
 import { whenOptions, type JobFormState } from "@/lib/validation";
 import type { Dictionary } from "@/data/dictionaries/en";
-import Field from "@/components/Field";
-import { inputClass } from "@/lib/formStyles";
 import { submitJob } from "@/app/post-job/action";
 import { estates } from "@/data/estate";
 
@@ -18,20 +15,27 @@ const initialState: JobFormState = { status: "idle", errors: {}, values: {} };
 type Props = {
   dict: Dictionary["postJob"];
   categoryNames: Dictionary["categories"]["items"];
+  poster: { name: string; phone: string };
 };
 
-export default function PostJobForm({ dict, categoryNames }: Props) {
+export default function PostJobForm({ dict, categoryNames, poster }: Props) {
   const [state, formAction, pending] = useActionState(submitJob, initialState);
 
   if (state.status === "success") {
     return (
       <div className="py-6 text-center">
         <div className="text-5xl">🎉</div>
-        <h2 className="mt-3 text-2xl font-bold text-gray-900">{dict.success.title}</h2>
-        <p className="mx-auto mt-2 max-w-sm text-gray-600">{dict.success.text}</p>
+        <h2 className="mt-3 text-2xl font-bold text-gray-900">
+          {dict.success.title}
+        </h2>
+        <p className="mx-auto mt-2 max-w-sm text-gray-600">
+          {dict.success.text}
+        </p>
         <p className="mt-4 text-sm text-gray-500">
           {dict.success.ref}:{" "}
-          <span className="font-mono font-semibold text-gray-900">{state.jobRef}</span>
+          <span className="font-mono font-semibold text-gray-900">
+            {state.jobRef}
+          </span>
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <button
@@ -54,7 +58,6 @@ export default function PostJobForm({ dict, categoryNames }: Props) {
 
   const v = state.values;
 
-  // Turn an error code into a message in the current language
   const err = (field: string) => {
     const code = state.errors[field];
     if (!code) return undefined;
@@ -63,7 +66,17 @@ export default function PostJobForm({ dict, categoryNames }: Props) {
 
   return (
     <form action={formAction} noValidate className="space-y-5">
-      <Field label={dict.fields.category} htmlFor="category" error={err("category")}>
+      <p className="rounded-lg bg-brand-50 px-3 py-2 text-sm text-brand-800">
+        {dict.postingAs
+          .replace("{name}", poster.name)
+          .replace("{phone}", poster.phone)}
+      </p>
+
+      <Field
+        label={dict.fields.category}
+        htmlFor="category"
+        error={err("category")}
+      >
         <select
           id="category"
           name="category"
@@ -93,7 +106,11 @@ export default function PostJobForm({ dict, categoryNames }: Props) {
         />
       </Field>
 
-      <Field label={dict.fields.description} htmlFor="description" error={err("description")}>
+      <Field
+        label={dict.fields.description}
+        htmlFor="description"
+        error={err("description")}
+      >
         <textarea
           id="description"
           name="description"
@@ -106,7 +123,11 @@ export default function PostJobForm({ dict, categoryNames }: Props) {
       </Field>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label={dict.fields.estate} htmlFor="estate" error={err("estate")}>
+        <Field
+          label={dict.fields.estate}
+          htmlFor="estate"
+          error={err("estate")}
+        >
           <input
             id="estate"
             name="estate"
@@ -156,36 +177,21 @@ export default function PostJobForm({ dict, categoryNames }: Props) {
         />
       </Field>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field label={dict.fields.name} htmlFor="name" error={err("name")}>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            defaultValue={v.name}
-            className={inputClass(err("name"))}
-          />
-        </Field>
-
-        <Field
-          label={dict.fields.phone}
-          htmlFor="phone"
-          error={err("phone")}
-          hint={dict.fields.phoneHint}
-        >
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            defaultValue={v.phone}
-            placeholder="0712 345 678"
-            className={inputClass(err("phone"))}
-          />
-        </Field>
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      >
+        <input type="text" name="fax" tabIndex={-1} autoComplete="off" />
       </div>
+
+      {err("form") && (
+        <p
+          role="alert"
+          className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700"
+        >
+          {err("form")}
+        </p>
+      )}
 
       <button
         type="submit"
