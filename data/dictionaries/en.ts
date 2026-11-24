@@ -100,6 +100,7 @@ const en = {
   postJob: {
     title: "Post a job",
     subtitle: "Tell us what you need. It's free and takes under a minute.",
+    postingAs: "Posting as {name} (+{phone})",
     fields: {
       category: "What do you need?",
       categoryPlaceholder: "Choose a category",
@@ -140,6 +141,10 @@ const en = {
       budgetMin: "Minimum budget is KES 100.",
       name: "Enter your name.",
       phone: "Enter a valid phone number, e.g. 0712 345 678.",
+      loginRequired: "Please log in to post a job.",
+      rateLimited:
+        "You've posted several jobs today. Please try again tomorrow.",
+      saveFailed: "Something went wrong saving your job. Please try again.",
     },
     success: {
       title: "Job posted!",
@@ -149,7 +154,6 @@ const en = {
       home: "Back home",
     },
   },
-
   worker: {
     title: "Register as a worker",
     subtitle: "Free to join. Get job alerts near you and earn through M-Pesa.",
@@ -243,6 +247,22 @@ const en = {
     interested: "I'm interested",
     noAccountCta: "Want job alerts on your phone?",
     register: "Register as a worker",
+    apply: {
+      button: "I'm interested",
+      sending: "Sending...",
+      sent: "Thanks! We've passed on your interest and will contact you on your account number.",
+      applied: "You've shown interest",
+      yours: "Your job",
+      loginToApply: "Log in to apply",
+      errors: {
+        loginRequired: "Please log in to apply.",
+        jobClosed: "This job is no longer open.",
+        alreadyApplied: "You've already shown interest in this job.",
+        ownJob: "This is your own job.",
+        rateLimited: "Too many applications today. Please try again tomorrow.",
+        saveFailed: "Something went wrong. Please try again.",
+      },
+    },
   },
   auth: {
     show: "Show",

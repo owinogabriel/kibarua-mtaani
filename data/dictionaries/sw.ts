@@ -110,6 +110,7 @@ const sw: Dictionary = {
     title: "Weka kazi",
     subtitle:
       "Tuambie unachohitaji. Ni bure na inachukua chini ya dakika moja.",
+    postingAs: "Unaweka kama {name} (+{phone})",
     fields: {
       category: "Unahitaji nini?",
       categoryPlaceholder: "Chagua aina ya kazi",
@@ -150,6 +151,10 @@ const sw: Dictionary = {
       budgetMin: "Bajeti ya chini ni KES 100.",
       name: "Weka jina lako.",
       phone: "Weka namba sahihi ya simu, k.m. 0712 345 678.",
+      loginRequired: "Tafadhali ingia ili kuweka kazi.",
+      rateLimited: "Umeweka kazi kadhaa leo. Tafadhali jaribu tena kesho.",
+      saveFailed:
+        "Hitilafu imetokea wakati wa kuhifadhi kazi yako. Tafadhali jaribu tena.",
     },
     success: {
       title: "Kazi imewekwa!",
@@ -255,6 +260,22 @@ const sw: Dictionary = {
     interested: "Nimevutiwa",
     noAccountCta: "Unataka arifa za kazi kwenye simu yako?",
     register: "Jisajili kama mfanyakazi",
+    apply: {
+      button: "Nimevutiwa",
+      sending: "Inatuma...",
+      sent: "Asante! Tumepokea ombi lako na tutawasiliana nawe kupitia namba ya akaunti yako.",
+      applied: "Umeonyesha nia",
+      yours: "Kazi yako",
+      loginToApply: "Ingia ili kuomba",
+      errors: {
+        loginRequired: "Tafadhali ingia ili kuomba kazi.",
+        jobClosed: "Kazi hii haipatikani tena.",
+        alreadyApplied: "Tayari umeonyesha nia kwa kazi hii.",
+        ownJob: "Hii ni kazi yako mwenyewe.",
+        rateLimited: "Maombi mengi mno leo. Tafadhali jaribu tena kesho.",
+        saveFailed: "Hitilafu imetokea. Tafadhali jaribu tena.",
+      },
+    },
   },
   auth: {
     show: "Onyesha",
