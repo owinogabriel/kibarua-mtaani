@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { categories } from "@/data/categories";
-
+import { and, desc, eq, ilike } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { jobs } from "@/lib/db/schema";
+import { categories, type CategorySlug } from "@/data/categories";
 import { getDictionary } from "@/lib/i18n";
 import { inputClass } from "@/lib/formStyles";
 import { estates } from "@/data/estate";
-import { mockJobs } from "@/data/mockJobs";
 
 type Props = {
   searchParams: Promise<{ category?: string; estate?: string }>;
@@ -16,11 +17,26 @@ export default async function FindWorkPage({ searchParams }: Props) {
   const t = dict.findWork;
   const catNames = dict.categories.items;
 
-  const jobs = mockJobs.filter(
-    (job) =>
-      (!category || job.category === category) &&
-      (!estate || job.estate === estate),
-  );
+  const rows = await db
+    .select({
+      id: jobs.id,
+      category: jobs.category,
+      title: jobs.title,
+      estate: jobs.estate,
+      timing: jobs.timing,
+      budget: jobs.budget,
+      createdAt: jobs.createdAt,
+    })
+    .from(jobs)
+    .where(
+      and(
+        eq(jobs.status, "open"),
+        category ? eq(jobs.category, category) : undefined,
+        estate ? ilike(jobs.estate, estate) : undefined,
+      ),
+    )
+    .orderBy(desc(jobs.createdAt))
+    .limit(50);
 
   const hasFilters = Boolean(category || estate);
 
@@ -81,17 +97,28 @@ export default async function FindWorkPage({ searchParams }: Props) {
         </form>
 
         <p className="mt-6 text-sm text-gray-500">
-          {t.results.replace("{n}", String(jobs.length))}
+          {t.results.replace("{n}", String(rows.length))}
         </p>
 
-        {jobs.length === 0 ? (
+        {rows.length === 0 ? (
           <div className="mt-6 rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-gray-600">
             {t.noResults}
           </div>
         ) : (
           <ul className="mt-4 grid gap-4 md:grid-cols-2">
-            {jobs.map((job) => {
-              const cat = categories.find((c) => c.slug === job.category)!;
+            {rows.map((job) => {
+              const cat = categories.find((c) => c.slug === job.category);
+              if (!cat) return null;
+
+              const hoursAgo = Math.max(
+                1,
+                Math.floor((Date.now() - job.createdAt.getTime()) / 3_600_000),
+              );
+              const whenLabel =
+                dict.postJob.when[
+                  job.timing as keyof typeof dict.postJob.when
+                ] ?? job.timing;
+
               return (
                 <li
                   key={job.id}
@@ -99,10 +126,10 @@ export default async function FindWorkPage({ searchParams }: Props) {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-                      {cat.emoji} {catNames[job.category].name}
+                      {cat.emoji} {catNames[cat.slug as CategorySlug].name}
                     </span>
                     <span className="text-xs text-gray-400">
-                      {t.postedAgo.replace("{n}", String(job.postedHoursAgo))}
+                      {t.postedAgo.replace("{n}", String(hoursAgo))}
                     </span>
                   </div>
 
@@ -111,7 +138,7 @@ export default async function FindWorkPage({ searchParams }: Props) {
                   </h2>
 
                   <p className="mt-1 text-sm text-gray-600">
-                    📍 {job.estate} · 🕒 {dict.postJob.when[job.when]}
+                    📍 {job.estate} · 🕒 {whenLabel}
                   </p>
 
                   <div className="mt-4 flex items-center justify-between">

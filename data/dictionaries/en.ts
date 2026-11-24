@@ -12,6 +12,8 @@ const en = {
     login: "Log in",
     signup: "Sign up",
     menu: "Toggle menu",
+    dashboard: "Dashboard",
+    logout: "Log out",
   },
   hero: {
     badge: "Neighborhood gigs, done right",
@@ -187,7 +189,7 @@ const en = {
       aboutLong: "Keep it under 300 characters.",
       consent: "Please agree so we can send you jobs.",
     },
-       success: {
+    success: {
       title: "You're registered!",
       text: "Welcome to Kibarua Mtaani. We'll message you when jobs come up in your area. Later you'll be able to verify your ID for a trusted badge.",
       ref: "Your reference",
@@ -241,6 +243,51 @@ const en = {
     interested: "I'm interested",
     noAccountCta: "Want job alerts on your phone?",
     register: "Register as a worker",
+  },
+  auth: {
+    show: "Show",
+    hide: "Hide",
+    login: {
+      title: "Log in",
+      subtitle: "Welcome back. Log in with your phone number and password.",
+      submit: "Log in",
+      submitting: "Logging in...",
+      noAccount: "New here?",
+      signupLink: "Create an account",
+    },
+    signup: {
+      title: "Create your account",
+      subtitle: "It's free. Use your phone number and choose a password.",
+      name: "Your name",
+      submit: "Create account",
+      submitting: "Creating...",
+      haveAccount: "Already have an account?",
+      loginLink: "Log in",
+    },
+    fields: {
+      phone: "Phone number",
+      password: "Password",
+      passwordHint: "At least 8 characters. Never use your M-Pesa PIN.",
+    },
+    errors: {
+      name: "Enter your name.",
+      phone: "Enter a valid phone number, e.g. 0712 345 678.",
+      password: "Enter your password.",
+      passwordShort: "Password must be at least 8 characters.",
+      passwordLong: "Password is too long.",
+      phoneTaken: "This phone number already has an account. Try logging in.",
+      invalidLogin: "Wrong phone number or password.",
+      locked: "Too many failed attempts. Please try again in 15 minutes.",
+      saveFailed: "Something went wrong. Please try again.",
+    },
+  },
+  dashboard: {
+    greeting: "Hi, {name}",
+    subtitle: "What would you like to do?",
+    postJob: "Post a job",
+    findWork: "Find work",
+    registerWorker: "Set up my worker profile",
+    soon: "Your jobs and applications will show up here soon.",
   },
 };
 
