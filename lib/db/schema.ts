@@ -26,6 +26,7 @@ export const jobs = pgTable("jobs", {
 
 export const workers = pgTable("workers", {
   id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").unique().references(() => users.id, {onDelete: "set null"}),
   ref: text("ref").notNull().unique(),
   name: text("name").notNull(),
   phone: text("phone").notNull().unique(),

@@ -157,6 +157,7 @@ const en = {
   worker: {
     title: "Register as a worker",
     subtitle: "Free to join. Get job alerts near you and earn through M-Pesa.",
+    registeringAs: "Registering as {name} (+{phone})",
     fields: {
       name: "Your name",
       phone: "Phone number",
@@ -192,6 +193,8 @@ const en = {
       experience: "Choose your experience.",
       aboutLong: "Keep it under 300 characters.",
       consent: "Please agree so we can send you jobs.",
+      loginRequired: "Please log in to register as a worker.",
+      alreadyRegistered: "You already have a worker profile.",
     },
     success: {
       title: "You're registered!",
@@ -199,6 +202,8 @@ const en = {
       ref: "Your reference",
       another: "Register someone else",
       home: "Back home",
+      findWork: "Find work",
+      dashboard: "Go to dashboard",
     },
   },
 
@@ -250,7 +255,7 @@ const en = {
     apply: {
       button: "I'm interested",
       sending: "Sending...",
-      sent: "Thanks! We've passed on your interest and will contact you on your account number.",
+      sent: "Thanks! The customer can now see your interest and contact you on your account number.",
       applied: "You've shown interest",
       yours: "Your job",
       loginToApply: "Log in to apply",
@@ -304,11 +309,36 @@ const en = {
   },
   dashboard: {
     greeting: "Hi, {name}",
-    subtitle: "What would you like to do?",
+    subtitle: "Manage your jobs and applications.",
     postJob: "Post a job",
     findWork: "Find work",
     registerWorker: "Set up my worker profile",
-    soon: "Your jobs and applications will show up here soon.",
+    workerReady: "Worker profile active",
+    verifiedBadge: "Verified",
+    myJobs: "My jobs",
+    noJobs: "You haven't posted any jobs yet.",
+    interested: "Interested workers ({n})",
+    noApplicants: "No one has shown interest yet.",
+    contact: "WhatsApp",
+    whatsappMsg:
+      'Hi {name}, I saw you\'re interested in my job "{title}" on Kibarua Mtaani. Are you available?',
+    myApplications: "My applications",
+    noApplications: "You haven't applied to any jobs yet.",
+    withdraw: "Withdraw",
+    posted: "Posted {date}",
+    applied: "Applied {date}",
+    status: {
+      open: "Open",
+      assigned: "Filled",
+      done: "Done",
+      cancelled: "Cancelled",
+    },
+    actions: {
+      assigned: "Mark filled",
+      cancelled: "Cancel job",
+      done: "Mark done",
+      open: "Reopen",
+    },
   },
 };
 

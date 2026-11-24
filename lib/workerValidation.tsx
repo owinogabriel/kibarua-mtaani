@@ -53,3 +53,8 @@ export const emptyWorkerValues: WorkerFormState["values"] = {
   areas: [],
   consent: false,
 };
+
+export const workerDetailsSchema = workerSchema.omit({
+  name: true,
+  phone: true,
+});

@@ -2,7 +2,7 @@
 
 **Neighborhood gigs, done right.** A hyperlocal marketplace for Kenya that connects people who need everyday jobs done (cleaning, fundi work, laundry, delivery, moving, gardening, painting) with trusted people looking for casual work in their own estate.
 
-*Kibarua* is Swahili for casual or daily-wage work, and *mtaani* means "in the neighborhood."
+_Kibarua_ is Swahili for casual or daily-wage work, and _mtaani_ means "in the neighborhood."
 
 > **Status:** early development. The core flows work locally. Payments and a public pilot are still ahead.
 
@@ -27,16 +27,16 @@ Someone in Kilimani needs a plumber today. Someone one street away wants exactly
 
 ## Tech stack
 
-| Area | Choice |
-|---|---|
-| Framework | Next.js (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4 (theme set in `app/globals.css`) |
-| Database | Neon (serverless Postgres) |
-| ORM | Drizzle ORM and Drizzle Kit |
-| Validation | Zod |
-| Forms | Server Actions with `useActionState` |
-| Auth | Custom: scrypt password hashing, hashed session tokens in httpOnly cookies |
+| Area       | Choice                                                                     |
+| ---------- | -------------------------------------------------------------------------- |
+| Framework  | Next.js (App Router)                                                       |
+| Language   | TypeScript                                                                 |
+| Styling    | Tailwind CSS v4 (theme set in `app/globals.css`)                           |
+| Database   | Neon (serverless Postgres)                                                 |
+| ORM        | Drizzle ORM and Drizzle Kit                                                |
+| Validation | Zod                                                                        |
+| Forms      | Server Actions with `useActionState`                                       |
+| Auth       | Custom: scrypt password hashing, hashed session tokens in httpOnly cookies |
 
 ## Project structure
 
@@ -99,23 +99,23 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Scripts
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Start the dev server |
-| `npm run build` | Production build |
-| `npm run db:push` | Sync the Drizzle schema to the Neon database |
-| `npm run db:studio` | Open Drizzle Studio to browse data |
+| Command             | What it does                                 |
+| ------------------- | -------------------------------------------- |
+| `npm run dev`       | Start the dev server                         |
+| `npm run build`     | Production build                             |
+| `npm run db:push`   | Sync the Drizzle schema to the Neon database |
+| `npm run db:studio` | Open Drizzle Studio to browse data           |
 
 ## Database
 
-| Table | Purpose |
-|---|---|
-| `users` | Accounts (name, phone, password hash) |
-| `sessions` | Login sessions (token hash, expiry) |
-| `login_attempts` | Failed logins, used to slow down password guessing |
-| `jobs` | Posted jobs, linked to the account that posted them |
-| `workers` | Worker profiles (skills, areas, experience, verified flag) |
-| `applications` | Workers' interest in jobs (one per account per job) |
+| Table            | Purpose                                                    |
+| ---------------- | ---------------------------------------------------------- |
+| `users`          | Accounts (name, phone, password hash)                      |
+| `sessions`       | Login sessions (token hash, expiry)                        |
+| `login_attempts` | Failed logins, used to slow down password guessing         |
+| `jobs`           | Posted jobs, linked to the account that posted them        |
+| `workers`        | Worker profiles (skills, areas, experience, verified flag) |
+| `applications`   | Workers' interest in jobs (one per account per job)        |
 
 ## Security and privacy notes
 
@@ -145,10 +145,10 @@ Open [http://localhost:3000](http://localhost:3000).
 - [x] Neon and Drizzle, real job listings
 - [x] Phone and password accounts
 - [x] Login required to post jobs and apply
-- [ ] Dashboard: my jobs, interested workers and my applications
+- [x] Dashboard: my jobs, interested workers and my applications
 - [ ] Require login for worker registration and link profiles to accounts
 - [ ] Admin page: view jobs and workers, WhatsApp links, mark workers verified, reset passwords
-- [ ] Deploy to Vercel
+- [x] Deploy to Vercel
 - [ ] Pilot in one estate and collect feedback
 - [ ] Phone verification with SMS codes
 - [ ] M-Pesa payments with Daraja (STK Push), then payouts to workers
