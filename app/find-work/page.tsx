@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { and, desc, eq, ilike } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { jobs } from "@/lib/db/schema";
+import { applications, jobs } from "@/lib/db/schema";
 import { categories, type CategorySlug } from "@/data/categories";
 import { getDictionary } from "@/lib/i18n";
+import { getCurrentUser } from "@/lib/auth/session";
 import { inputClass } from "@/lib/formStyles";
+import ApplyForm from "@/components/ApplyForm";
 import { estates } from "@/data/estate";
 
 type Props = {
@@ -14,12 +16,14 @@ type Props = {
 export default async function FindWorkPage({ searchParams }: Props) {
   const { category = "", estate = "" } = await searchParams;
   const dict = await getDictionary();
+  const user = await getCurrentUser();
   const t = dict.findWork;
   const catNames = dict.categories.items;
 
   const rows = await db
     .select({
       id: jobs.id,
+      userId: jobs.userId,
       category: jobs.category,
       title: jobs.title,
       estate: jobs.estate,
@@ -38,6 +42,16 @@ export default async function FindWorkPage({ searchParams }: Props) {
     .orderBy(desc(jobs.createdAt))
     .limit(50);
 
+  // Which of these jobs has the logged-in user already applied to?
+  const applied = new Set<string>();
+  if (user) {
+    const mine = await db
+      .select({ jobId: applications.jobId })
+      .from(applications)
+      .where(eq(applications.userId, user.id));
+    mine.forEach((m) => applied.add(m.jobId));
+  }
+
   const hasFilters = Boolean(category || estate);
 
   return (
@@ -46,7 +60,6 @@ export default async function FindWorkPage({ searchParams }: Props) {
         <h1 className="text-3xl font-extrabold text-gray-900">{t.title}</h1>
         <p className="mt-2 text-gray-600">{t.subtitle}</p>
 
-        {/* Filters: a plain GET form, so no client JavaScript needed */}
         <form
           method="get"
           className="mt-8 grid gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:grid-cols-[1fr_1fr_auto_auto]"
@@ -115,9 +128,10 @@ export default async function FindWorkPage({ searchParams }: Props) {
                 Math.floor((Date.now() - job.createdAt.getTime()) / 3_600_000),
               );
               const whenLabel =
-                dict.postJob.when[
-                  job.timing as keyof typeof dict.postJob.when
-                ] ?? job.timing;
+                dict.postJob.when[job.timing as keyof typeof dict.postJob.when] ??
+                job.timing;
+
+              const isOwn = Boolean(user && job.userId === user.id);
 
               return (
                 <li
@@ -133,42 +147,39 @@ export default async function FindWorkPage({ searchParams }: Props) {
                     </span>
                   </div>
 
-                  <h2 className="mt-3 text-lg font-bold text-gray-900">
-                    {job.title}
-                  </h2>
+                  <h2 className="mt-3 text-lg font-bold text-gray-900">{job.title}</h2>
 
                   <p className="mt-1 text-sm text-gray-600">
                     📍 {job.estate} · 🕒 {whenLabel}
                   </p>
 
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="font-semibold text-gray-900">
-                      {job.budget
-                        ? `KES ${job.budget.toLocaleString("en-KE")}`
-                        : t.quotes}
-                    </span>
+                  <p className="mt-3 font-semibold text-gray-900">
+                    {job.budget
+                      ? `KES ${job.budget.toLocaleString("en-KE")}`
+                      : t.quotes}
+                  </p>
+
+                  {isOwn ? (
+                    <p className="mt-4 text-sm font-medium text-gray-500">{t.apply.yours}</p>
+                  ) : applied.has(job.id) ? (
+                    <p className="mt-4 rounded-lg bg-brand-50 px-3 py-2 text-sm font-medium text-brand-700">
+                      ✓ {t.apply.applied}
+                    </p>
+                  ) : user ? (
+                    <ApplyForm jobId={job.id} dict={t.apply} />
+                  ) : (
                     <Link
-                      href="/register-worker"
-                      className="rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-600"
+                      href="/login?next=/find-work"
+                      className="mt-4 block rounded-lg bg-accent-500 px-4 py-2 text-center text-sm font-semibold text-white hover:bg-accent-600"
                     >
-                      {t.interested}
+                      {t.apply.loginToApply}
                     </Link>
-                  </div>
+                  )}
                 </li>
               );
             })}
           </ul>
         )}
-
-        <div className="mt-10 text-center text-sm text-gray-600">
-          {t.noAccountCta}{" "}
-          <Link
-            href="/register-worker"
-            className="font-semibold text-brand-700 hover:underline"
-          >
-            {t.register}
-          </Link>
-        </div>
       </div>
     </main>
   );
