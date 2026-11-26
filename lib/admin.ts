@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { getCurrentUser } from "./auth/session";
 import { normalizeKenyanPhone } from "./phone";
 
@@ -15,4 +16,11 @@ export async function getAdmin() {
   const user = await getCurrentUser();
   if (!user) return null;
   return adminPhones().has(user.phone) ? user : null;
+}
+
+// For pages: non-admins get a plain 404, so the page's existence isn't revealed
+export async function requireAdmin() {
+  const admin = await getAdmin();
+  if (!admin) notFound();
+  return admin;
 }
